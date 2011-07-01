@@ -1,0 +1,64 @@
+<script src="../src/ArrayList.js"></script>
+<script>
+// Create a instance of the ArrayList
+var list = new Collection.ArrayList();
+
+// Add strings at the end of list
+list.add("Java");
+list.add("Ruby");
+list.add("Cobol");
+list.add("Fortran");
+list.add("Lisp");
+list.add("Python");
+
+// Add string at position 1 of list
+list.addAt(1, "C#");
+
+// Print some info
+document.write("array: " + list.toArray());
+document.write("<br />array[6]: " + list.toArray()[6]);
+document.write("<br />size: " + list.size());
+
+// Sort the list
+list.sort();
+
+// Print more info
+document.write("<br />----");
+document.write("<br />array: " + list.toArray());
+document.write("<br />array[6]: " + list.toArray()[6]);
+document.write("<br />size: " + list.size());
+
+// Remove string at position 6 of list
+list.remove(6);
+
+// Print more info
+document.write("<br />----");
+document.write("<br />array: " + list.toArray());
+document.write("<br />array[6]: " + list.toArray()[6]);
+document.write("<br />size: " + list.size());
+
+// Clear the list
+list.clear();
+
+// Print more info
+document.write("<br />----");
+document.write("<br />array: " + list.toArray());
+document.write("<br />array[6]: " + list.toArray()[6]);
+document.write("<br />size: " + list.size());
+
+var numList = new Collection.ArrayList();
+numList.add(6);
+numList.add(90);
+numList.add(34);
+numList.add(65);
+numList.add(7);
+numList.add(3);
+numList.add(89);
+numList.sort(Collection.Sort.stringAsc);
+
+// Print more info
+document.write("<br /><br />---- List of Numbers ---");
+document.write("<br />array: " + numList.toArray());
+document.write("<br />size: " + numList.size());
+
+</script>
