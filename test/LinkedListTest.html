@@ -8,9 +8,39 @@ list.add("Java");
 list.add("Javascript");
 list.add("C");
 list.add("C++");
+list.add("Python");
+list.add("Objective C");
 
 // Add a string at position 1 of list
-list.addAt(1, "C#");
+list.add("C#", 1);
 
-document.write(list.indexOf("C"));
+// Print more info
+document.write("list: " + list.toArray());
+document.write("<br />list[6]: " + list.get(6));
+document.write("<br />size: " + list.size);
+
+// Remove string at position 6
+list.remove(6);
+
+// Print more info
+document.write("<br />----");
+document.write("<br />list: " + list.toArray());
+document.write("<br />size: " + list.size);
+
+// Remove string
+list.removeObj("C#");
+
+// Print more info
+document.write("<br />----");
+document.write("<br />list: " + list.toArray());
+document.write("<br />size: " + list.size);
+
+// Clear the list
+list.clear();
+
+// Print more info
+document.write("<br />----");
+document.write("<br />list: " + list.toArray());
+document.write("<br />size: " + list.size);
+
 </script>

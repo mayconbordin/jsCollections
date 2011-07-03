@@ -31,10 +31,9 @@ Collection.LinkedList = function() {
 };
 
 Collection.LinkedList.prototype = {
-	add: function(o) {
-		this._addLast(o);
-	},
-	addAt: function(index, o) {
+	add: function(o, index) {
+		if(isNaN(index))
+			index = this.size;
 		this._checkBoundsInclusive(index);
 		
 		if (index < this.size) {
@@ -52,28 +51,35 @@ Collection.LinkedList.prototype = {
 		else
 			this._addLast(o);
 	},
-	addFirst: function(o) {
-		var e = new Collection.Entry(o);
-		if (this.size == 0)
-			this.first = this.last = e;
-		else {
-			e.next = this.first;
-			this.first.previous = e;
-			this.first = e;
-		}
+	remove: function(index) {
+		this._checkBoundsExclusive(index);
+		var e = this._getEntry(index);
+		this._removeEntry(e);
+		return e.value;
+	},
+	removeObj: function(o) {
+		var index = this.indexOf(o);
+		if (index != -1) {
+			this.remove(index);
+			return true;
+		} else
+			return false;
+	},
+	set: function(index, o) {
+		this._checkBoundsExclusive(index);
+		var e = this._getEntry(index);
+		var old = e.value;
+		e.value = o;
+		return old;
 	},
 	get: function(index) {
 		this._checkBoundsExclusive(index);
 		return this._getEntry(index).value;
 	},
 	getFirst: function() {
-		if (this.size == 0)
-			throw new Error("List is empty");
 		return this.first;
 	},
 	getLast: function() {
-		if (this.size == 0)
-			throw new Error("List is empty");
 		return this.last;
 	},
 	indexOf: function(elem) {
@@ -113,6 +119,15 @@ Collection.LinkedList.prototype = {
 		}
 		return array;
 	},
+	clear: function() {
+		this.size = 0;
+		var e = this.last;
+		while (e != null) {
+			var temp = e.previous;
+			e = e.previous = e.next = null;
+			e = temp;
+		}
+	},
 	
 	// Internal Implementations
   	// ------------------------
@@ -131,13 +146,31 @@ Collection.LinkedList.prototype = {
 	
 		return e;
 	},
+	_removeEntry: function(e) {
+		--this.size;
+		if (this.size == 0)
+			this.first = this.last = null;
+		else {
+			if (e === this.first) {
+				this.first = e.next;
+				e.next.previous = null;
+			} else if (e === this.last) {
+				this.last = e.previous;
+				e.previous.next = null;
+			} else {
+				e.next.previous = e.previous;
+				e.previous.next = e.next;
+			}
+			e.destroy();
+		}
+	},
 	_checkBoundsExclusive: function(index) {
 		if (index < 0 || index >= this.size)
-			throw new Error("Index " + index + " is out of bounds [0," + this.size + "]");
+			throw new Error("Index " + index + " is out of bounds [0," + (this.size - 1) + "]");
 	},
 	_checkBoundsInclusive: function(index) {
 		if (index < 0 || index > this.size)
-			throw new Error("Index " + index + " is out of bounds [0," + this.size + "]");
+			throw new Error("Index " + index + " is out of bounds [0," + (this.size - 1) + "]");
 	},
 	_addLast: function(o) {
 		var e = new Collection.Entry(o);

@@ -33,11 +33,9 @@ Collection.ArrayList = function() {
 };
 
 Collection.ArrayList.prototype = {
-	add: function(e) {
-		this.data[this.data.length] = e;
-		return true;
-	},
-	addAt: function(index, e) {
+	add: function(e, index) {
+		if(isNaN(index))
+			index = this.data.length;
 		this._checkBoundInclusive(index);
 		if (index < this.data.length) {
 			for (var i = this.data.length; i > index; --i)
@@ -61,6 +59,12 @@ Collection.ArrayList.prototype = {
 		this._checkBoundExclusive(index);
 		return this.data[index];
 	},
+	getFirst: function() {
+		return (this.isEmpty() ? null : this.get(0));
+	},
+	getLast: function() {
+		return (this.isEmpty() ? null : this.get(this.data.lenght - 1));
+	},
 	set: function(index, e) {
 		this._checkBoundExclusive(index);
 		var r = this.data[index];
@@ -80,6 +84,14 @@ Collection.ArrayList.prototype = {
 			this.data[i] = this.data[i + 1];
 		--this.data.length;
 		return r;
+	},
+	removeObj: function(o) {
+		var index = this.indexOf(o);
+		if (index != -1) {
+			this.remove(index);
+			return true;
+		} else
+			return false;
 	},
 	clear: function() {
 		this.data.length = 0;

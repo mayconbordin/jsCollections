@@ -12,7 +12,7 @@ list.add("Lisp");
 list.add("Python");
 
 // Add string at position 1 of list
-list.addAt(1, "C#");
+list.add("C#", 1);
 
 // Print some info
 document.write("array: " + list.toArray());
@@ -46,7 +46,10 @@ document.write("<br />array: " + list.toArray());
 document.write("<br />array[6]: " + list.toArray()[6]);
 document.write("<br />size: " + list.size());
 
+// Create a new ArrayList
 var numList = new Collection.ArrayList();
+
+// Add only numbers to the list
 numList.add(6);
 numList.add(90);
 numList.add(34);
@@ -54,11 +57,12 @@ numList.add(65);
 numList.add(7);
 numList.add(3);
 numList.add(89);
+
+// Set an sort algorithm
 numList.sort(Collection.Sort.stringAsc);
 
 // Print more info
 document.write("<br /><br />---- List of Numbers ---");
 document.write("<br />array: " + numList.toArray());
 document.write("<br />size: " + numList.size());
-
 </script>
